@@ -1,0 +1,40 @@
+{
+  "vectors": [
+    {
+      "name": "Vector_1_Approved",
+      "windowId": 0,
+      "seq": 0,
+      "recordP": {
+        "ruleId": 2,
+        "outcome": 1,
+        "riskBucket": 4,
+        "routeId": 101,
+        "blockRef": 5800000,
+        "blockHashPrefix": "0x57520350",
+        "subject": "0x0e828c58e5f81d1dd0fc14e8edca7e3babba00e1",
+        "actuatorId": "0x0101010101010101010101010101010101010101010101010101010101010101",
+        "actionHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "nonce": 1
+      },
+      "privCommit": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "name": "Vector_2_Denied",
+      "windowId": 1,
+      "seq": 65,
+      "recordP": {
+        "ruleId": 1,
+        "outcome": 0,
+        "riskBucket": 14,
+        "routeId": 202,
+        "blockRef": 5800100,
+        "blockHashPrefix": "0xdeadbeef",
+        "subject": "0x3144253b5ed2f5c535d343da85a8caeb66768526",
+        "actuatorId": "0x0202020202020202020202020202020202020202020202020202020202020202",
+        "actionHash": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "nonce": 42
+      },
+      "privCommit": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ]
+}
