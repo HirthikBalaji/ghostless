@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# Hardhat artifacts & cache
+cache/
+artifacts/
+
+# Local databases & logs
+*.db
+*.log
+.DS_Store
+
+# Environment (keep example)
+.env

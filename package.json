@@ -1,0 +1,30 @@
+{
+  "name": "ghostless",
+  "version": "1.0.0",
+  "description": "Ghostless: Proof of Non-Omission for Decision Ledgers on MST Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test"
+  },
+  "keywords": [
+    "blockchain",
+    "mst",
+    "audit",
+    "non-omission",
+    "merkle",
+    "fraud-proof"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "5.0.2",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.18"
+  },
+  "dependencies": {
+    "@mstblockchain/mst-sdk": "^1.0.0",
+    "@mstblockchain/mst-vibe-kit": "^0.1.1"
+  }
+}
