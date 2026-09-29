@@ -1,0 +1,18 @@
+{
+  "network": "mstTestnet",
+  "chainId": "91562037",
+  "operatorAddress": "0x1024134f53ad64202EefD562A60100DDE681D5c3",
+  "ghostlessLedgerAddress": "0x7B0b975D1C044225be49f178F34332029b28620c",
+  "perTxAnchorAddress": "0xa42618de5862e582e55Cdd212cA11F890a5249f2",
+  "batchRootAnchorAddress": "0x7d38Ccc9fFE711353007e488D47991E378aF8c13",
+  "parameters": {
+    "W": 15,
+    "R": 20,
+    "D": 1200,
+    "minBond": "1.0",
+    "demandFee": "0.01",
+    "slashBps": 5000,
+    "initialBond": "2.0"
+  },
+  "deployedAt": "2026-09-29T08:38:21.366Z"
+}
