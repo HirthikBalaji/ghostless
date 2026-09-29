@@ -1,0 +1,38 @@
+{
+  "ghostless": {
+    "size_64": {
+      "window_size": 64,
+      "open_window_gas": 123095,
+      "seal_window_gas": 120220,
+      "total_pair_gas": 243315,
+      "amortized_gas_per_decision": 3801.8,
+      "savings_vs_b0_factor": 17.89
+    },
+    "size_128": {
+      "window_size": 128,
+      "open_window_gas": 88895,
+      "seal_window_gas": 86032,
+      "total_pair_gas": 174927,
+      "amortized_gas_per_decision": 1366.62,
+      "savings_vs_b0_factor": 49.78
+    },
+    "size_256": {
+      "window_size": 256,
+      "open_window_gas": 88895,
+      "seal_window_gas": 86032,
+      "total_pair_gas": 174927,
+      "amortized_gas_per_decision": 683.31,
+      "savings_vs_b0_factor": 99.56
+    },
+    "demand_inclusion_gas": 201993,
+    "respond_inclusion_gas": 85603
+  },
+  "b0_per_tx": {
+    "gas_per_decision": 68028
+  },
+  "b1_batch_root": {
+    "gas_per_batch": 114468,
+    "amortized_gas_at_128": 894.28
+  },
+  "comparison": {}
+}
