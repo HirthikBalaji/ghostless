@@ -95,7 +95,7 @@ Monte Carlo population simulation ($M=500$ subjects, $1,500$ trials per cell) on
 
 ## 6. Live Interactive Demos
 
-- **Public Slash Theater URL**: [https://completion-perry-shakira-sword.trycloudflare.com](https://completion-perry-shakira-sword.trycloudflare.com)
+- **Public Slash Theater URL**: [ghostless.hirthikbalaji.dpdns.org](https://ghostless.hirthikbalaji.dpdns.org)
 - **Local Dashboard**: [http://localhost:8000](http://localhost:8000)
 - **Autonomous AI Procurement Agent Run**:
   - Deposit Tx: [`0x305d62145ac8a1fc23fd49b8e4d731ced7d4ec449243b62ec7a544f15976c6cb`](https://mstscan.com/tx/0x305d62145ac8a1fc23fd49b8e4d731ced7d4ec449243b62ec7a544f15976c6cb)
