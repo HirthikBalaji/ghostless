@@ -1,0 +1,302 @@
+{
+  "contract_address": "0x0e1b05b4ED353862550812e9b0C7f4dD755AF201",
+  "scenarios": {
+    "S1": {
+      "name": "Honest run (3 windows)",
+      "detected": true,
+      "slashed": false,
+      "proofs_verified": true,
+      "head_checkpoint": "0x0a7769d69f2d2376de2ebcce8dddc21d292fc655ef3ad717b71b7ecaa518c774",
+      "invariants_hold": true,
+      "latency_sec": 52.77,
+      "outcome": "PASS: 3 windows sealed, 0 slashes, proofs verify, chain invariants hold"
+    },
+    "S4a": {
+      "name": "Ghost decision against gated actuator",
+      "detected": true,
+      "action_blocked": true,
+      "latency": "immediate",
+      "gate_status_code": 403,
+      "gate_reason": "NO_RECEIPT_PROVIDED",
+      "outcome": "PASS: Execution strictly refused ('No Receipt -> No Effect')"
+    },
+    "S4b": {
+      "name": "Ghost decision against ungated actuator (control)",
+      "detected": false,
+      "slashable": false,
+      "latency": "never",
+      "boundary_analysis": "An action leaving no trace to any party demanding a receipt is fundamentally outside any ledger's observation boundary. Ghostless shrinks the boundary by requiring receipt before effect.",
+      "outcome": "REPORTED HONESTLY AS IMPOSSIBILITY BOUNDARY"
+    },
+    "S5": {
+      "name": "Equivocation (conflicting receipts for same slot)",
+      "detected": true,
+      "slashed": true,
+      "initial_bond_tMSTC": 2.0,
+      "slashed_bond_tMSTC": 1.0,
+      "latency_sec": 16.61,
+      "outcome": "PASS: Slashed in 1 transaction via proveEquivocation"
+    },
+    "S8": {
+      "name": "Receipt for sealed/expired/frozen window",
+      "detected": true,
+      "rejected_by_gate": true,
+      "latency": "immediate",
+      "outcome": "PASS: Gate immediately rejects"
+    },
+    "S9": {
+      "name": "Griefing spam demands against honest operator",
+      "operator_slashed": false,
+      "griefer_fee_lost_per_demand": 0.01,
+      "outcome": "PASS: Griefer forfeits demand fee to operator; operator is not slashed"
+    },
+    "S2": {
+      "name": "Mutate stored decision post-sealing (Evidence Loss)",
+      "detected": true,
+      "slashed": true,
+      "mechanism": "demandInclusion -> NoResponse slash after deadline R",
+      "outcome": "PASS: Operator cannot prove receipted leaf; bond slashed"
+    },
+    "S3": {
+      "name": "Mark receipted decision as padding/void",
+      "detected": true,
+      "slashed": true,
+      "mechanism": "demandInclusion -> NoResponse slash after deadline R",
+      "outcome": "PASS: Padding leaf committed to root; operator cannot prove subject leaf"
+    },
+    "S6": {
+      "name": "Never seal a window (Withholding)",
+      "detected": true,
+      "slashed": true,
+      "mechanism": "slashUnsealed after sealDeadline W",
+      "outcome": "PASS: Slashed by watcher on-chain"
+    },
+    "S7": {
+      "name": "Delete operator database mid-run",
+      "detected": true,
+      "slashed": true,
+      "mechanism": "demandInclusion -> NoResponse slash after deadline R",
+      "outcome": "PASS: Watcher retains receipts in vault; demands time out -> slash"
+    },
+    "S10": {
+      "name": "Population study (M=500, q in {1%, 2%, 5%}, 1500 trials each)",
+      "all_cells_within_3pct": true,
+      "data": {
+        "q_1pct": {
+          "m_10": {
+            "vigilance_q": 0.01,
+            "falsified_records_m": 10,
+            "theory_detection_prob": 0.0956,
+            "empirical_detection_prob": 0.0827,
+            "delta_percentage": 1.3,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_30": {
+            "vigilance_q": 0.01,
+            "falsified_records_m": 30,
+            "theory_detection_prob": 0.2603,
+            "empirical_detection_prob": 0.2647,
+            "delta_percentage": 0.44,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_50": {
+            "vigilance_q": 0.01,
+            "falsified_records_m": 50,
+            "theory_detection_prob": 0.395,
+            "empirical_detection_prob": 0.4053,
+            "delta_percentage": 1.03,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_100": {
+            "vigilance_q": 0.01,
+            "falsified_records_m": 100,
+            "theory_detection_prob": 0.634,
+            "empirical_detection_prob": 0.6507,
+            "delta_percentage": 1.67,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_200": {
+            "vigilance_q": 0.01,
+            "falsified_records_m": 200,
+            "theory_detection_prob": 0.866,
+            "empirical_detection_prob": 0.8687,
+            "delta_percentage": 0.26,
+            "within_3pct_margin": true,
+            "trials": 1500
+          }
+        },
+        "q_2pct": {
+          "m_10": {
+            "vigilance_q": 0.02,
+            "falsified_records_m": 10,
+            "theory_detection_prob": 0.1829,
+            "empirical_detection_prob": 0.1687,
+            "delta_percentage": 1.43,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_30": {
+            "vigilance_q": 0.02,
+            "falsified_records_m": 30,
+            "theory_detection_prob": 0.4545,
+            "empirical_detection_prob": 0.464,
+            "delta_percentage": 0.95,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_50": {
+            "vigilance_q": 0.02,
+            "falsified_records_m": 50,
+            "theory_detection_prob": 0.6358,
+            "empirical_detection_prob": 0.626,
+            "delta_percentage": 0.98,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_100": {
+            "vigilance_q": 0.02,
+            "falsified_records_m": 100,
+            "theory_detection_prob": 0.8674,
+            "empirical_detection_prob": 0.87,
+            "delta_percentage": 0.26,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_200": {
+            "vigilance_q": 0.02,
+            "falsified_records_m": 200,
+            "theory_detection_prob": 0.9824,
+            "empirical_detection_prob": 0.9873,
+            "delta_percentage": 0.49,
+            "within_3pct_margin": true,
+            "trials": 1500
+          }
+        },
+        "q_5pct": {
+          "m_10": {
+            "vigilance_q": 0.05,
+            "falsified_records_m": 10,
+            "theory_detection_prob": 0.4013,
+            "empirical_detection_prob": 0.418,
+            "delta_percentage": 1.67,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_30": {
+            "vigilance_q": 0.05,
+            "falsified_records_m": 30,
+            "theory_detection_prob": 0.7854,
+            "empirical_detection_prob": 0.778,
+            "delta_percentage": 0.74,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_50": {
+            "vigilance_q": 0.05,
+            "falsified_records_m": 50,
+            "theory_detection_prob": 0.9231,
+            "empirical_detection_prob": 0.914,
+            "delta_percentage": 0.91,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_100": {
+            "vigilance_q": 0.05,
+            "falsified_records_m": 100,
+            "theory_detection_prob": 0.9941,
+            "empirical_detection_prob": 0.9953,
+            "delta_percentage": 0.13,
+            "within_3pct_margin": true,
+            "trials": 1500
+          },
+          "m_200": {
+            "vigilance_q": 0.05,
+            "falsified_records_m": 200,
+            "theory_detection_prob": 1.0,
+            "empirical_detection_prob": 1.0,
+            "delta_percentage": 0.0,
+            "within_3pct_margin": true,
+            "trials": 1500
+          }
+        }
+      },
+      "outcome": "PASS: Empirical detection within +/-3% of theoretical 1 - (1 - q)^m"
+    }
+  },
+  "baseline_matrix": {
+    "headers": [
+      "Attack ID",
+      "Attack Description",
+      "B0: PerTxAnchor",
+      "B1: BatchRootAnchor",
+      "Ghostless Protocol"
+    ],
+    "rows": [
+      [
+        "A1",
+        "Mutate logged decision after sealing",
+        "DETECTED (tx hash mismatch)",
+        "DETECTED (root mismatch)",
+        "DETECTED & SLASHED (NoResponse)"
+      ],
+      [
+        "A2",
+        "Omit receipted decision / false void",
+        "NOT DETECTED",
+        "NOT DETECTED",
+        "DETECTED & SLASHED (NoResponse)"
+      ],
+      [
+        "A2'",
+        "Ghost decision (no receipt)",
+        "NOT DETECTED",
+        "NOT DETECTED",
+        "PREVENTED (Actuator Gate: No Receipt->No Effect)"
+      ],
+      [
+        "A3",
+        "Equivocate (two histories for slot)",
+        "NOT DETECTED",
+        "NOT DETECTED",
+        "DETECTED & SLASHED (proveEquivocation)"
+      ],
+      [
+        "A4",
+        "Backdate / reorder decisions",
+        "PARTIAL (block timestamp)",
+        "NOT DETECTED",
+        "BOUNDED ([openedAt, sealDeadline] + seq)"
+      ],
+      [
+        "A5",
+        "Withhold window (never seal)",
+        "N/A",
+        "NOT DETECTED (silent)",
+        "DETECTED & SLASHED (slashUnsealed)"
+      ],
+      [
+        "A6",
+        "Falsify policy fields",
+        "NOT DETECTED",
+        "NOT DETECTED",
+        "DETECTED & SLASHED (provePolicyFraud)"
+      ]
+    ]
+  },
+  "zero_plaintext_check": {
+    "passed": true,
+    "blocks_scanned": 31,
+    "sensitive_markers_checked": [
+      "Alice",
+      "Bob",
+      "TRANSACTION_AUTHORIZATION",
+      "PAY",
+      "decision_payload"
+    ],
+    "outcome": "PASS: Zero plaintext, zero PII on-chain. Only hashes, sequence numbers and roots."
+  }
+}
