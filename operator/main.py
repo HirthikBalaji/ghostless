@@ -187,11 +187,11 @@ def theater_honest():
     return {
         "success": True,
         "type": "HONEST_APPROVED",
-        "seq": record["seq"],
-        "windowId": record["window_id"],
+        "seq": record["receipt"]["seq"],
+        "windowId": record["receipt"]["windowId"],
         "leaf": record["receipt"]["leaf"],
         "signature": record["receipt"]["signature"],
-        "message": f"Issued approved receipt for Slot #{record['seq']} in Window #{record['window_id']}. Actuator Gate allows execution."
+        "message": f"Issued approved receipt for Slot #{record['receipt']['seq']} in Window #{record['receipt']['windowId']}. Actuator Gate allows execution."
     }
 
 @app.post("/api/theater/ghost")

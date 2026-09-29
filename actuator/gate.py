@@ -90,9 +90,9 @@ class ActuatorGate:
     def authorize_and_execute(
         self,
         action_payload_bytes: bytes,
-        receipt: Optional[Dict[str, Any]],
-        record_p_hex: Optional[str],
-        priv_commit_hex: Optional[str],
+        receipt: Optional[Dict[str, Any]] = None,
+        record_p_hex: Optional[str] = None,
+        priv_commit_hex: Optional[str] = None,
         proof_hex_list: Optional[list] = None
     ) -> Dict[str, Any]:
         """
