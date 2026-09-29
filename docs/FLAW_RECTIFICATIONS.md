@@ -103,17 +103,27 @@ In `actuator/gate.py`:
 
 ---
 
-### Flaw 3.4 — Economic Deterrence Model
+### Flaw 3.4 — Economic Deterrence Model & Exposure Cap
 
 **The Critique:**
 > *"The specification defines a penalty mechanism. It does not establish that committing fraud is economically irrational. A malicious operator might gain more from fraud than the bond."*
 
 **The Rectification:**
-The economic deterrence invariant is formalized:
-$$\text{Expected Cost of Misconduct} = q \cdot B \cdot \text{slashBps} + \text{Cost of New Deployment} > G_{\max}$$
+The economic deterrence invariant is formalized and structurally enforced:
+$$P(\text{detect}) \cdot B \cdot \text{slashBps} > m \cdot g$$
 Where:
-- $B$ is the operator's bonded capital on MST Blockchain (e.g. $B \ge 1.0\text{ tMSTC}$).
-- $q$ is the vigilance rate of affected subjects (e.g. $q = 2\%$).
-- For $m$ violations, the detection probability is $P(\text{detect}) = 1 - (1 - q)^m$. For $m = 200$, $P(\text{detect}) \approx 98.2\%$.
-- Permanent Blacklisting: Slashing permanently freezes the operator address on-chain (`frozen = true` is monotonic). The operator cannot unfreeze; replacing the operator requires locking a new bond $B \ge \text{minBond}$.
-- Anti-Griefing Balance: The demand fee ($0.01\text{ tMSTC}$) prevents griefers from draining operator resources; honest responses transfer the fee to the operator.
+- $B$ is the operator's active bonded collateral on MST Blockchain ($B \ge \text{minBond} = 1.0\text{ tMSTC}$, currently $2.0\text{ tMSTC}$).
+- $\text{slashBps} = 5000$ (50% bond slash on first offense).
+- $P(\text{detect}) = 1 - (1 - q)^m$ is the detection probability across $m$ omissions. For $m = 200$ and $q = 2\%$, $P(\text{detect}) \approx 98.24\%$.
+- $g$ is the net illicit profit per omission.
+
+**Structural Cap via ReceiptGatedEscrow.sol (Exposure Cap $k=2$):**
+In addition to statistical deterrence, `ReceiptGatedEscrow.sol` enforces an on-chain **Exposure Cap**:
+$$\text{Max Released Funds in Window } W \le B \cdot k$$
+Where $k = 2$. An operator can **never** extract more than $k \cdot B$ in an entire window, mathematically capping the maximum possible gain $G_{\max} = m \cdot g \le k \cdot B$. This transforms economic safety from an off-chain hope into an **on-chain contract guarantee**.
+
+**Victim-Compensated Slashing Split:**
+- **60% to Harmed Subject (Victim Compensation)**: Reimburses the victim and makes vigilance economically rational ($q > 0$).
+- **20% to Reporter / Watcher**: Rewards independent auditors for filing challenges.
+- **20% Burned (`0x...dEaD`)**: Permanent deflationary supply destruction.
+- **Demand Fee Refund**: The demand fee ($0.01\text{ tMSTC}$) is 100% refunded to the challenger when the operator fails to respond, eliminating any tax on vigilance.

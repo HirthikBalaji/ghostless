@@ -26,6 +26,7 @@ This codebase is directly integrated with and tested against the official MST Bl
 | Contract | MST Testnet Address | Explorer Link |
 |---|---|---|
 | **GhostlessLedger** | `0x7B0b975D1C044225be49f178F34332029b28620c` | [View on MSTScan](https://mstscan.com/address/0x7B0b975D1C044225be49f178F34332029b28620c) |
+| **ReceiptGatedEscrow** | `0x41927a6b2B940389F1263bC1E30584f9A066f7F4` | [View on MSTScan](https://mstscan.com/address/0x41927a6b2B940389F1263bC1E30584f9A066f7F4) |
 | **PerTxAnchor (Baseline B0)** | `0xa42618de5862e582e55Cdd212cA11F890a5249f2` | [View on MSTScan](https://mstscan.com/address/0xa42618de5862e582e55Cdd212cA11F890a5249f2) |
 | **BatchRootAnchor (Baseline B1)** | `0x7d38Ccc9fFE711353007e488D47991E378aF8c13` | [View on MSTScan](https://mstscan.com/address/0x7d38Ccc9fFE711353007e488D47991E378aF8c13) |
 

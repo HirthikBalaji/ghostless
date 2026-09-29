@@ -36,6 +36,13 @@ The core contract deployed on **MST Testnet** at `0x7B0b975D1C044225be49f178F343
 - **Equivocation Slashing**: `proveEquivocation(rA, sigA, rB, sigB)` slashes an operator who signs two different leaves for the same slot.
 - **Policy Fraud Proof**: `provePolicyFraud(...)` verifies leaf inclusion and evaluates semantic policy correctness on-chain.
 
+### 1.2 ReceiptGatedEscrow.sol (On-Chain Smart Contract Actuator)
+Deployed on **MST Testnet** at `0x41927a6b2B940389F1263bC1E30584f9A066f7F4`.
+- **On-chain Gating**: Enforces *"No Receipt -> No Effect"* for value transfers and smart contract state.
+- **Escrow Deposit**: Locks native MSTC or tokens with strict conditions (`subject`, `actionHash`, `expiryBlock`).
+- **Release Verification**: Funds can only be released upon presenting a valid EIP-712 operator receipt verified via `GhostlessLedger.acceptable()` or `verifyInclusion()`.
+- **Replay & Fail-Closed**: Replay protection over `(windowId, seq)` and instant refund capabilities if the operator is frozen.
+
 ### 1.2 Cryptographic Primitives & Data Structures
 - **Leaf Hash**:
   $$\text{leaf} = \text{keccak256}(0x00 \parallel \text{abi.encode}(\text{windowId}, \text{seq}, \text{keccak256}(\text{recordP}), \text{privCommit}))$$

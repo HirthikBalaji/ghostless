@@ -112,3 +112,35 @@ class MaliciousOperator(WindowManager):
         if os.path.exists(self.db_path):
             os.remove(self.db_path)
             print(f"[MaliciousOperator] Nuked operator database at {self.db_path}!")
+
+    def create_fraudulent_policy_record(
+        self,
+        window_id: int,
+        seq: int,
+        subject_address: str,
+        actuator_id_bytes: bytes,
+        action_hash: bytes
+    ) -> Tuple[bytes, bytes, bytes]:
+        """
+        Attack A6/S11: Creates a fraudulent policy record committing ruleId=999 (Strict Deny)
+        with outcome=1 (Approved), directly violating on-chain policy invariant.
+        Returns (record_p_bytes, priv_commit, leaf).
+        """
+        blk_num, blk_prefix = self.get_latest_block_info()
+        fraud_tuple = (
+            999, # Strict Deny Rule
+            1,   # Approved (Contradiction!)
+            5,
+            1,
+            blk_num,
+            blk_prefix,
+            Web3.to_checksum_address(subject_address),
+            actuator_id_bytes,
+            action_hash,
+            1
+        )
+        record_p_bytes = encode(RECORD_P_TYPES, [fraud_tuple])
+        priv_commit = Web3.keccak(secrets.token_bytes(32))
+        leaf = hash_leaf(window_id, seq, record_p_bytes, priv_commit)
+        return record_p_bytes, priv_commit, leaf
+

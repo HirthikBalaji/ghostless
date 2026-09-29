@@ -115,6 +115,16 @@ contract GhostlessLedger is EIP712, ReentrancyGuard {
         address reporter,
         uint256 amount
     );
+    event SlashedWithVictim(
+        Kind indexed kind,
+        uint256 indexed windowId,
+        address indexed reporter,
+        address victim,
+        uint256 slashAmount,
+        uint256 victimComp,
+        uint256 reporterBounty,
+        uint256 burned
+    );
     event OperatorWithdrawn(address indexed operator, uint256 amount);
 
     constructor(
@@ -344,7 +354,7 @@ contract GhostlessLedger is EIP712, ReentrancyGuard {
         (bool sentRefund, ) = payable(demander).call{value: refundFee}("");
         require(sentRefund, "Refund failed");
 
-        _slash(Kind.NoResponse, d.r.windowId, msg.sender);
+        _slashWithVictim(Kind.NoResponse, d.r.windowId, msg.sender, demander);
     }
 
     /**
@@ -411,7 +421,7 @@ contract GhostlessLedger is EIP712, ReentrancyGuard {
 
         require(isFraud, "No policy fraud demonstrated");
 
-        _slash(Kind.PolicyFraud, windowId, msg.sender);
+        _slashWithVictim(Kind.PolicyFraud, windowId, msg.sender, p.subject);
     }
 
     // ==========================================
@@ -497,12 +507,36 @@ contract GhostlessLedger is EIP712, ReentrancyGuard {
         uint256 windowId,
         address reporter
     ) internal {
+        _slashWithVictim(kind, windowId, reporter, address(0));
+    }
+
+    function _slashWithVictim(
+        Kind kind,
+        uint256 windowId,
+        address reporter,
+        address victim
+    ) internal {
         uint256 slashAmount = (bond * slashBps) / 10000;
         bond -= slashAmount;
         frozen = true;
 
-        uint256 reporterBounty = slashAmount / 2;
-        uint256 burnAmount = slashAmount - reporterBounty;
+        uint256 victimComp = 0;
+        uint256 reporterBounty = 0;
+        uint256 burnAmount = 0;
+
+        if (victim != address(0)) {
+            // Victim-compensated split: 60% harmed subject, 20% reporter, 20% burn
+            victimComp = (slashAmount * 60) / 100;
+            reporterBounty = (slashAmount * 20) / 100;
+            burnAmount = slashAmount - victimComp - reporterBounty;
+
+            (bool sentVictim, ) = payable(victim).call{value: victimComp}("");
+            require(sentVictim, "Victim compensation failed");
+        } else {
+            // Generic violation (unsealed / equivocation): 20% reporter, 80% burn
+            reporterBounty = (slashAmount * 20) / 100;
+            burnAmount = slashAmount - reporterBounty;
+        }
 
         if (reporterBounty > 0) {
             (bool sentReporter, ) = payable(reporter).call{
@@ -519,6 +553,16 @@ contract GhostlessLedger is EIP712, ReentrancyGuard {
         }
 
         emit Slashed(kind, windowId, reporter, slashAmount);
+        emit SlashedWithVictim(
+            kind,
+            windowId,
+            reporter,
+            victim,
+            slashAmount,
+            victimComp,
+            reporterBounty,
+            burnAmount
+        );
     }
 
     function _verifyPositionalProof(

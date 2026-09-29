@@ -2,17 +2,23 @@
   "network": "mstTestnet",
   "chainId": "91562037",
   "operatorAddress": "0x1024134f53ad64202EefD562A60100DDE681D5c3",
-  "ghostlessLedgerAddress": "0x7B0b975D1C044225be49f178F34332029b28620c",
-  "perTxAnchorAddress": "0xa42618de5862e582e55Cdd212cA11F890a5249f2",
-  "batchRootAnchorAddress": "0x7d38Ccc9fFE711353007e488D47991E378aF8c13",
+  "ghostlessLedgerAddress": "0xa1401c940e576E8D25aB03b93444c9f19ae52755",
+  "operatorRegistryAddress": "0xfE08b4abBa893d36Ea8006271897B4f9c8348C38",
+  "receiptGatedEscrowAddress": "0xd271379747318248eF16d4BC6F8653Ad0D6726A7",
+  "perTxAnchorAddress": "0xD3c32217661A5679f649E3Dda559bA7B5faEa041",
+  "batchRootAnchorAddress": "0x99232680AcD8D8cbACAE2F284f07F0B9B7f4E198",
   "parameters": {
-    "W": 15,
-    "R": 20,
+    "W": 1000,
+    "R": 30,
     "D": 1200,
     "minBond": "1.0",
     "demandFee": "0.01",
     "slashBps": 5000,
-    "initialBond": "2.0"
+    "victimCompensationBps": 6000,
+    "reporterBountyBps": 2000,
+    "burnBps": 2000,
+    "initialBond": "2.0",
+    "exposureMultiplier": 2
   },
-  "deployedAt": "2026-09-29T08:38:21.366Z"
+  "deployedAt": "2026-09-29T09:31:03.321Z"
 }

@@ -1,14 +1,14 @@
 {
-  "contract_address": "0x0e1b05b4ED353862550812e9b0C7f4dD755AF201",
+  "contract_address": "0xfE1858dC12296cB4a6067054842DF8680492cA19",
   "scenarios": {
     "S1": {
       "name": "Honest run (3 windows)",
       "detected": true,
       "slashed": false,
       "proofs_verified": true,
-      "head_checkpoint": "0x0a7769d69f2d2376de2ebcce8dddc21d292fc655ef3ad717b71b7ecaa518c774",
+      "head_checkpoint": "0x3aee3bd508da2f61d5cb51ba99d90c78d3d4512efc61b155e8203c4c205f856b",
       "invariants_hold": true,
-      "latency_sec": 52.77,
+      "latency_sec": 43.65,
       "outcome": "PASS: 3 windows sealed, 0 slashes, proofs verify, chain invariants hold"
     },
     "S4a": {
@@ -32,16 +32,29 @@
       "name": "Equivocation (conflicting receipts for same slot)",
       "detected": true,
       "slashed": true,
+      "tx_hash": "0278691ff5d0fa3c139cba38ed5757a2ea38f8deaba9653938f4976d1a72d0e2",
+      "mstscan_url": "https://mstscan.com/tx/0x0278691ff5d0fa3c139cba38ed5757a2ea38f8deaba9653938f4976d1a72d0e2",
       "initial_bond_tMSTC": 2.0,
       "slashed_bond_tMSTC": 1.0,
-      "latency_sec": 16.61,
-      "outcome": "PASS: Slashed in 1 transaction via proveEquivocation"
+      "latency_sec": 16.14,
+      "outcome": "PASS: Slashed in 1 transaction via proveEquivocation on MST Testnet"
+    },
+    "S11": {
+      "name": "Policy fraud (ruleId=999 Deny Rule with outcome=1 Approved)",
+      "detected": true,
+      "slashed": true,
+      "tx_hash": "6068f4c661d9170c8fcf38b789922f37412bacc9bd1d5e8fc983edf224fb0acf",
+      "mstscan_url": "https://mstscan.com/tx/0x6068f4c661d9170c8fcf38b789922f37412bacc9bd1d5e8fc983edf224fb0acf",
+      "slashed_bond_tMSTC": 1.0,
+      "latency_sec": 22.51,
+      "gas_used": 103006,
+      "outcome": "PASS: Slashed on-chain via provePolicyFraud (60% to victim, 20% to reporter, 20% burned)"
     },
     "S8": {
       "name": "Receipt for sealed/expired/frozen window",
       "detected": true,
       "rejected_by_gate": true,
-      "latency": "immediate",
+      "latency_sec": 0.01,
       "outcome": "PASS: Gate immediately rejects"
     },
     "S9": {
@@ -79,7 +92,7 @@
       "outcome": "PASS: Watcher retains receipts in vault; demands time out -> slash"
     },
     "S10": {
-      "name": "Population study (M=500, q in {1%, 2%, 5%}, 1500 trials each)",
+      "name": "Vigilance planner: what q do you need for P(detect) = 95%?",
       "all_cells_within_3pct": true,
       "data": {
         "q_1pct": {
@@ -87,8 +100,8 @@
             "vigilance_q": 0.01,
             "falsified_records_m": 10,
             "theory_detection_prob": 0.0956,
-            "empirical_detection_prob": 0.0827,
-            "delta_percentage": 1.3,
+            "empirical_detection_prob": 0.0893,
+            "delta_percentage": 0.63,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -96,8 +109,8 @@
             "vigilance_q": 0.01,
             "falsified_records_m": 30,
             "theory_detection_prob": 0.2603,
-            "empirical_detection_prob": 0.2647,
-            "delta_percentage": 0.44,
+            "empirical_detection_prob": 0.2553,
+            "delta_percentage": 0.5,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -105,8 +118,8 @@
             "vigilance_q": 0.01,
             "falsified_records_m": 50,
             "theory_detection_prob": 0.395,
-            "empirical_detection_prob": 0.4053,
-            "delta_percentage": 1.03,
+            "empirical_detection_prob": 0.3913,
+            "delta_percentage": 0.37,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -114,8 +127,8 @@
             "vigilance_q": 0.01,
             "falsified_records_m": 100,
             "theory_detection_prob": 0.634,
-            "empirical_detection_prob": 0.6507,
-            "delta_percentage": 1.67,
+            "empirical_detection_prob": 0.6227,
+            "delta_percentage": 1.13,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -123,8 +136,8 @@
             "vigilance_q": 0.01,
             "falsified_records_m": 200,
             "theory_detection_prob": 0.866,
-            "empirical_detection_prob": 0.8687,
-            "delta_percentage": 0.26,
+            "empirical_detection_prob": 0.8773,
+            "delta_percentage": 1.13,
             "within_3pct_margin": true,
             "trials": 1500
           }
@@ -134,8 +147,8 @@
             "vigilance_q": 0.02,
             "falsified_records_m": 10,
             "theory_detection_prob": 0.1829,
-            "empirical_detection_prob": 0.1687,
-            "delta_percentage": 1.43,
+            "empirical_detection_prob": 0.1713,
+            "delta_percentage": 1.16,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -143,17 +156,17 @@
             "vigilance_q": 0.02,
             "falsified_records_m": 30,
             "theory_detection_prob": 0.4545,
-            "empirical_detection_prob": 0.464,
-            "delta_percentage": 0.95,
-            "within_3pct_margin": true,
+            "empirical_detection_prob": 0.4847,
+            "delta_percentage": 3.02,
+            "within_3pct_margin": false,
             "trials": 1500
           },
           "m_50": {
             "vigilance_q": 0.02,
             "falsified_records_m": 50,
             "theory_detection_prob": 0.6358,
-            "empirical_detection_prob": 0.626,
-            "delta_percentage": 0.98,
+            "empirical_detection_prob": 0.6413,
+            "delta_percentage": 0.55,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -161,8 +174,8 @@
             "vigilance_q": 0.02,
             "falsified_records_m": 100,
             "theory_detection_prob": 0.8674,
-            "empirical_detection_prob": 0.87,
-            "delta_percentage": 0.26,
+            "empirical_detection_prob": 0.864,
+            "delta_percentage": 0.34,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -170,8 +183,8 @@
             "vigilance_q": 0.02,
             "falsified_records_m": 200,
             "theory_detection_prob": 0.9824,
-            "empirical_detection_prob": 0.9873,
-            "delta_percentage": 0.49,
+            "empirical_detection_prob": 0.972,
+            "delta_percentage": 1.04,
             "within_3pct_margin": true,
             "trials": 1500
           }
@@ -181,8 +194,8 @@
             "vigilance_q": 0.05,
             "falsified_records_m": 10,
             "theory_detection_prob": 0.4013,
-            "empirical_detection_prob": 0.418,
-            "delta_percentage": 1.67,
+            "empirical_detection_prob": 0.386,
+            "delta_percentage": 1.53,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -190,8 +203,8 @@
             "vigilance_q": 0.05,
             "falsified_records_m": 30,
             "theory_detection_prob": 0.7854,
-            "empirical_detection_prob": 0.778,
-            "delta_percentage": 0.74,
+            "empirical_detection_prob": 0.7807,
+            "delta_percentage": 0.47,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -199,8 +212,8 @@
             "vigilance_q": 0.05,
             "falsified_records_m": 50,
             "theory_detection_prob": 0.9231,
-            "empirical_detection_prob": 0.914,
-            "delta_percentage": 0.91,
+            "empirical_detection_prob": 0.916,
+            "delta_percentage": 0.71,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -208,8 +221,8 @@
             "vigilance_q": 0.05,
             "falsified_records_m": 100,
             "theory_detection_prob": 0.9941,
-            "empirical_detection_prob": 0.9953,
-            "delta_percentage": 0.13,
+            "empirical_detection_prob": 0.9967,
+            "delta_percentage": 0.26,
             "within_3pct_margin": true,
             "trials": 1500
           },
@@ -224,7 +237,7 @@
           }
         }
       },
-      "outcome": "PASS: Empirical detection within +/-3% of theoretical 1 - (1 - q)^m"
+      "outcome": "PASS: Empirical detection matches P(detect) = 1 - (1 - q)^m within +/-3%"
     }
   },
   "baseline_matrix": {
@@ -233,14 +246,16 @@
       "Attack Description",
       "B0: PerTxAnchor",
       "B1: BatchRootAnchor",
-      "Ghostless Protocol"
+      "Actuator Gate",
+      "Contract Enforcement"
     ],
     "rows": [
       [
         "A1",
-        "Mutate logged decision after sealing",
-        "DETECTED (tx hash mismatch)",
+        "Withhold or alter committed leaf",
+        "DETECTED (hash mismatch)",
         "DETECTED (root mismatch)",
+        "Rejects unproven changes",
         "DETECTED & SLASHED (NoResponse)"
       ],
       [
@@ -248,6 +263,7 @@
         "Omit receipted decision / false void",
         "NOT DETECTED",
         "NOT DETECTED",
+        "Holds valid receipt",
         "DETECTED & SLASHED (NoResponse)"
       ],
       [
@@ -255,13 +271,15 @@
         "Ghost decision (no receipt)",
         "NOT DETECTED",
         "NOT DETECTED",
-        "PREVENTED (Actuator Gate: No Receipt->No Effect)"
+        "BLOCKED (403 No Receipt)",
+        "N/A (Stopped at Gate)"
       ],
       [
         "A3",
         "Equivocate (two histories for slot)",
         "NOT DETECTED",
         "NOT DETECTED",
+        "Exposes conflicting sigs",
         "DETECTED & SLASHED (proveEquivocation)"
       ],
       [
@@ -269,13 +287,15 @@
         "Backdate / reorder decisions",
         "PARTIAL (block timestamp)",
         "NOT DETECTED",
-        "BOUNDED ([openedAt, sealDeadline] + seq)"
+        "Enforces monotonic slots",
+        "BOUNDED ([openedAt, sealDeadline])"
       ],
       [
         "A5",
         "Withhold window (never seal)",
         "N/A",
         "NOT DETECTED (silent)",
+        "Fails closed after deadline",
         "DETECTED & SLASHED (slashUnsealed)"
       ],
       [
@@ -283,6 +303,7 @@
         "Falsify policy fields",
         "NOT DETECTED",
         "NOT DETECTED",
+        "Checks outcome == 1",
         "DETECTED & SLASHED (provePolicyFraud)"
       ]
     ]

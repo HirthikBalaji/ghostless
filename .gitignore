@@ -9,7 +9,7 @@ cache/
 artifacts/
 
 # Local databases & logs
-*.db
+*.db*
 *.log
 .DS_Store
 

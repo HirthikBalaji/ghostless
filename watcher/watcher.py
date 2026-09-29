@@ -122,7 +122,7 @@ class Watcher:
 
                 tx_hash = self.send_tx(lambda: self.contract.functions.proveEquivocation(rA, sigA, rB, sigB))
                 self.emit_event("EQUIVOCATION_SLASH", window_id, seq, tx_hash, "Slashed operator for equivocation")
-                return
+                return tx_hash
 
             conn.execute(
                 "INSERT OR IGNORE INTO receipt_vault (window_id, seq, leaf, sig_hex) VALUES (?, ?, ?, ?)",

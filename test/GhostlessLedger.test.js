@@ -215,7 +215,7 @@ describe("GhostlessLedger & Invariant Suite", function () {
       expect(await ledger.bond()).to.equal(initialBond - slashedAmount);
 
       const finalWatcherBal = await ethers.provider.getBalance(watcher.address);
-      const expectedBounty = slashedAmount / 2n;
+      const expectedBounty = (slashedAmount * 20n) / 100n;
       expect(finalWatcherBal).to.equal(initialWatcherBal + expectedBounty - gasCost);
     });
   });
@@ -343,16 +343,20 @@ describe("GhostlessLedger & Invariant Suite", function () {
       const rc = await tx.wait();
       const gasCost = rc.gasUsed * tx.gasPrice;
 
-      // Demander received full refund
+      // Demander received full fee refund PLUS 60% victim compensation!
       const finalSubBal = await ethers.provider.getBalance(subject.address);
-      expect(finalSubBal).to.equal(initialSubBal - subGas);
+      const initialBond = ethers.parseEther("2.0");
+      const slashedAmount = (initialBond * BigInt(slashBps)) / 10000n;
+      const expectedVictimComp = (slashedAmount * 60n) / 100n;
+      expect(finalSubBal).to.equal(initialSubBal - subGas + expectedVictimComp);
 
       // Operator is frozen and slashed
       expect(await ledger.frozen()).to.equal(true);
 
-      // Watcher received reporter bounty
+      // Watcher received 20% reporter bounty
       const finalWatcherBal = await ethers.provider.getBalance(watcher.address);
-      expect(finalWatcherBal).to.be.gt(initialWatcherBal - gasCost);
+      const expectedWatcherBounty = (slashedAmount * 20n) / 100n;
+      expect(finalWatcherBal).to.equal(initialWatcherBal - gasCost + expectedWatcherBounty);
     });
   });
 
